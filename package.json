@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -15,9 +16,14 @@
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.5.0",
+    "joi": "^17.13.3",
     "lucide-react": "^0.511.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.15.0",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
+    "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.3.0"
