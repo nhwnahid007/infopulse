@@ -1,12 +1,11 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import config from '../../../../config';
 
 export const authOptions = {
 	providers: [
 		GoogleProvider({
-			clientId: config.google_client_id,
-			clientSecret: config.google_client_secret,
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 			authorization: {
 				params: {
 					prompt: 'consent',
@@ -31,7 +30,7 @@ export const authOptions = {
 				const { name, email, role, image } = user;
 
 				try {
-					const res = await fetch(`${config.nextauth_url}/api/user`, {
+					const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user`, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
