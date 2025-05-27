@@ -7,7 +7,7 @@ import googleLogo from '../../public/google-logo.webp'
 const SigninBtn = () => {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-screen mb-20">
         <div className="shadow-lg shadow-slate-900 rounded-lg p-8 max-w-md w-full text-center">
           <div className="mb-6">
             <Image
