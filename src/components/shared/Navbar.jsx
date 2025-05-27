@@ -17,6 +17,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import user from '../../../public/user.png';
 
 const navigationItems = [
   {
@@ -94,8 +95,7 @@ export default function Navbar() {
                     variant="ghost"
                     className={cn(
                       'text-white hover:bg-white/10 hover:text-white transition-colors',
-                      isActiveRoute(item.href) &&
-                        'bg-primary hover:bg-primary/80',
+                      isActiveRoute(item.href) && 'bg-primary hover:bg-primary/80'
                     )}
                   >
                     <Icon className="mr-2 h-4 w-4" />
@@ -105,15 +105,18 @@ export default function Navbar() {
               );
             })}
 
-            {/* Profile Section */}
+            {/* Profile Section - Desktop */}
+            {status === 'loading' && (
+              <div className="w-8 h-8 rounded-full border-2 border-white/20 animate-pulse bg-gray-500/40" />
+            )}
+
             {status === 'unauthenticated' && (
               <Link href="/profile">
                 <Button
                   variant="ghost"
                   className={cn(
                     'text-white hover:bg-white/10 hover:text-white transition-colors',
-                    isActiveRoute('/profile') &&
-                      'bg-primary hover:bg-primary/80',
+                    isActiveRoute('/profile') && 'bg-primary hover:bg-primary/80'
                   )}
                 >
                   <User className="mr-2 h-4 w-4" />
@@ -122,7 +125,7 @@ export default function Navbar() {
               </Link>
             )}
 
-            {status === 'authenticated' && session?.user?.image && (
+            {status === 'authenticated' && (
               <Button
                 variant="ghost"
                 className="p-1 hover:bg-white/10 transition-colors"
@@ -130,7 +133,7 @@ export default function Navbar() {
               >
                 <Image
                   className="rounded-full border-2 border-white/20 shadow-lg"
-                  src={session.user.image || '/placeholder.svg'}
+                  src={session?.user?.image || user}
                   width={32}
                   height={32}
                   alt="Profile Picture"
@@ -180,7 +183,7 @@ export default function Navbar() {
                       className={cn(
                         'justify-start h-12 text-base',
                         isActiveRoute(item.href) &&
-                          'bg-primary text-primary-foreground',
+                          'bg-primary text-primary-foreground'
                       )}
                       onClick={() => handleNavigation(item.href)}
                     >
@@ -195,7 +198,7 @@ export default function Navbar() {
                   className={cn(
                     'justify-start h-12 text-base',
                     isActiveRoute('/profile') &&
-                      'bg-primary text-primary-foreground',
+                      'bg-primary text-primary-foreground'
                   )}
                   onClick={() => handleNavigation('/profile')}
                 >
@@ -203,11 +206,22 @@ export default function Navbar() {
                   Profile
                 </Button>
 
+                {/* Profile Section - Mobile */}
+                {status === 'loading' && (
+                  <div className="flex items-center space-x-3 p-3 mt-4 border-t">
+                    <div className="w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
+                    <div className="flex flex-col space-y-1">
+                      <div className="w-24 h-3 bg-gray-300 rounded animate-pulse" />
+                      <div className="w-16 h-2 bg-gray-300 rounded animate-pulse" />
+                    </div>
+                  </div>
+                )}
+
                 {status === 'authenticated' && session?.user?.image && (
                   <div className="flex items-center space-x-3 p-3 mt-4 border-t">
                     <Image
                       className="rounded-full border-2 border-border"
-                      src={session.user.image || '/placeholder.svg'}
+                      src={session.user.image || user}
                       width={40}
                       height={40}
                       alt="Profile Picture"
