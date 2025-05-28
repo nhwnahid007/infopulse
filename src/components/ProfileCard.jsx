@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,8 +9,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Mail, Users, Settings } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 
 export default function ProfileWelcomeCard({ user }) {
   const getInitials = (name) =>
@@ -23,7 +22,7 @@ export default function ProfileWelcomeCard({ user }) {
       .slice(0, 2);
 
   return (
-    <Card className="w-full max-w-sm mx-auto ">
+    <Card className="w-full max-w-[50%] mx-auto ">
       <CardHeader className="text-center pb-3">
         <div className="flex justify-center mb-3">
           <Avatar className="w-16 h-16">
@@ -38,7 +37,7 @@ export default function ProfileWelcomeCard({ user }) {
         </div>
 
         <CardTitle className="text-xl">
-          Welcome, {user?.name?.split(' ')[0] || 'User'}!
+          Welcome, {user?.name || 'User'}!
         </CardTitle>
         <CardDescription className="text-sm">
           Glad to see you again
@@ -53,29 +52,22 @@ export default function ProfileWelcomeCard({ user }) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3 px-4">
+      <CardContent className="space-y-3 px-4 flex flex-col items-center justify-center">
         <Separator />
-        {user?.email && (
-          <div className="flex items-center gap-2 text-sm">
-            <Mail className="w-4 h-4 text-muted-foreground" />
-            <span>{user.email}</span>
-          </div>
-        )}
-        <div className="flex items-center gap-2 text-sm">
-          <Users className="w-4 h-4 text-muted-foreground" />
-          <span>Account status: Active</span>
-        </div>
+
+        <Tabs defaultValue="account" className="w-[400px] flex flex-col items-center justify-center">
+          <TabsList>
+            <TabsTrigger value="account" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Account</TabsTrigger>
+            <TabsTrigger value="password" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Password</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            Make changes to your account here.
+          </TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent>
+        </Tabs>
       </CardContent>
 
-      <CardFooter className="flex gap-2 px-4 pb-4 pt-3">
-        <Button className="flex-1" size="sm">
-          <Settings className="w-4 h-4 mr-2" />
-          Settings
-        </Button>
-        <Button variant="outline" className="flex-1" size="sm" onClick={() => signOut()}>
-          Sign Out
-        </Button>
-      </CardFooter>
+      <CardFooter className="flex gap-2 px-4 pb-4 pt-3"></CardFooter>
     </Card>
   );
 }

@@ -4,8 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
-import { Home, Book, Eye, TrendingUp, User, Menu, Grid3X3 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import {
+  Home,
+  Book,
+  Eye,
+  TrendingUp,
+  User,
+  Menu,
+  Grid3X3,
+  LogOut,
+} from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,6 +25,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import user from '../../../public/user.png';
 
@@ -74,11 +89,11 @@ export default function Navbar() {
             <Image
               src="https://res.cloudinary.com/dgo5hq8co/image/upload/v1748123586/info-pulse_myxcpg.png"
               alt="Logo"
-              width={40}
-              height={40}
+              width={80}
+              height={80}
               className="rounded"
             />
-            <span className="ml-2 italic font-semibold">
+            <span className="ml-1 italic font-semibold text-4xl">
               Info<span className="text-primary">Pulse</span>
             </span>
           </Link>
@@ -95,7 +110,8 @@ export default function Navbar() {
                     variant="ghost"
                     className={cn(
                       'text-white hover:bg-white/10 hover:text-white transition-colors',
-                      isActiveRoute(item.href) && 'bg-primary hover:bg-primary/80'
+                      isActiveRoute(item.href) &&
+                        'bg-primary hover:bg-primary/80',
                     )}
                   >
                     <Icon className="mr-2 h-4 w-4" />
@@ -116,7 +132,8 @@ export default function Navbar() {
                   variant="ghost"
                   className={cn(
                     'text-white hover:bg-white/10 hover:text-white transition-colors',
-                    isActiveRoute('/profile') && 'bg-primary hover:bg-primary/80'
+                    isActiveRoute('/profile') &&
+                      'bg-primary hover:bg-primary/80',
                   )}
                 >
                   <User className="mr-2 h-4 w-4" />
@@ -126,19 +143,32 @@ export default function Navbar() {
             )}
 
             {status === 'authenticated' && (
-              <Button
-                variant="ghost"
-                className="p-1 hover:bg-white/10 transition-colors"
-                onClick={() => router.push('/profile')}
-              >
-                <Image
-                  className="rounded-full border-2 border-white/20 shadow-lg"
-                  src={session?.user?.image || user}
-                  width={32}
-                  height={32}
-                  alt="Profile Picture"
-                />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="p-1 hover:bg-white/10 transition-colors"
+                  >
+                    <Image
+                      className="rounded-full border-2 border-white/20 shadow-lg"
+                      src={session?.user?.image || user}
+                      width={32}
+                      height={32}
+                      alt="Profile Picture"
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem onClick={() => router.push('/profile')}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => signOut()}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </nav>
         </div>
@@ -183,7 +213,7 @@ export default function Navbar() {
                       className={cn(
                         'justify-start h-12 text-base',
                         isActiveRoute(item.href) &&
-                          'bg-primary text-primary-foreground'
+                          'bg-primary text-primary-foreground',
                       )}
                       onClick={() => handleNavigation(item.href)}
                     >
@@ -198,7 +228,7 @@ export default function Navbar() {
                   className={cn(
                     'justify-start h-12 text-base',
                     isActiveRoute('/profile') &&
-                      'bg-primary text-primary-foreground'
+                      'bg-primary text-primary-foreground',
                   )}
                   onClick={() => handleNavigation('/profile')}
                 >

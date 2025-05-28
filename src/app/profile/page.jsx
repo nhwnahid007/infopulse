@@ -18,7 +18,7 @@ const ProfilePage = () => {
     );
   }
   return (
-    <div className=' '>
+    <div className='flex  flex-col items-center justify-center'>
       <SigninBtn></SigninBtn>
     </div>
   );

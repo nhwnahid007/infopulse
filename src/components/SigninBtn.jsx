@@ -6,10 +6,10 @@ import Link from 'next/link';
 import googleLogo from '../../public/google-logo.webp'
 const SigninBtn = () => {
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center h-screen mb-20">
+    
+      <div className="">
         <div className="shadow-lg shadow-slate-900 rounded-lg p-8 max-w-md w-full text-center">
-          <div className="mb-6">
+          <div className="">
             <Image
               alt="Logo"
               src={
@@ -25,7 +25,7 @@ const SigninBtn = () => {
 
           <button
             onClick={() => signIn('google')}
-            className="flex bg-white items-center gap-4 mt-2 shadow-xl rounded-md pl-3 mx-auto"
+            className="flex bg-white items-center gap-4 mt-2 shadow-xl rounded-md pl-3 mx-auto hover:scale-105 transition-all duration-300"
           >
             <Image
               src={googleLogo}
@@ -49,7 +49,7 @@ const SigninBtn = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 
