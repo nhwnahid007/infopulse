@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import History from './History';
+import Bookmark from './Bookmark';
 
 
 export default function ProfileWelcomeCard({ user }) {
@@ -22,7 +24,7 @@ export default function ProfileWelcomeCard({ user }) {
       .slice(0, 2);
 
   return (
-    <Card className="w-full max-w-[50%] mx-auto ">
+    <Card className="w-full max-w-[60%] mx-auto mb-10 ">
       <CardHeader className="text-center pb-3">
         <div className="flex justify-center mb-3">
           <Avatar className="w-16 h-16">
@@ -55,15 +57,17 @@ export default function ProfileWelcomeCard({ user }) {
       <CardContent className="space-y-3 px-4 flex flex-col items-center justify-center">
         <Separator />
 
-        <Tabs defaultValue="account" className="w-[400px] flex flex-col items-center justify-center">
+        <Tabs defaultValue="history" className="w-[400px] flex flex-col items-center justify-center">
           <TabsList>
-            <TabsTrigger value="account" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Account</TabsTrigger>
-            <TabsTrigger value="password" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Password</TabsTrigger>
+            <TabsTrigger value="history" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">History</TabsTrigger>
+            <TabsTrigger value="bookmark" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Bookmark</TabsTrigger>
           </TabsList>
-          <TabsContent value="account">
-            Make changes to your account here.
+          <TabsContent value="history">
+            <History />
           </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
+          <TabsContent value="bookmark">
+            <Bookmark />
+          </TabsContent>
         </Tabs>
       </CardContent>
 
