@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import user from '../../../public/user.png';
+import { Separator } from '@radix-ui/react-dropdown-menu';
 
 const navigationItems = [
   {
@@ -196,7 +197,7 @@ export default function Navbar() {
                     height={32}
                     className="rounded mr-2"
                   />
-                  PulseTimes
+                  InfoPulse
                 </SheetTitle>
                 <SheetDescription>
                   Navigate through our news sections
@@ -256,15 +257,24 @@ export default function Navbar() {
                       height={40}
                       alt="Profile Picture"
                     />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">
-                        {session.user.name}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {session.user.email}
-                      </span>
-                    </div>
+                    <div className="flex gap-2">
+                      <div className='flex flex-col'>
+                        <span className="text-sm font-medium">
+                          {session.user.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {session.user.email}
+                        </span>
+                      </div>
+                      <Button variant='ghost' className='w-fit' onClick={() => signOut()}>
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Logout</span>
+                      </Button>
+                      </div>
+
+                    
                   </div>
+                  
                 )}
               </nav>
             </SheetContent>
