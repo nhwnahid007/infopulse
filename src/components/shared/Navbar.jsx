@@ -258,7 +258,7 @@ export default function Navbar() {
                       alt="Profile Picture"
                     />
                     <div className="flex gap-2">
-                      <div className='flex flex-col'>
+                      <div className="flex flex-col">
                         <span className="text-sm font-medium">
                           {session.user.name}
                         </span>
@@ -266,15 +266,16 @@ export default function Navbar() {
                           {session.user.email}
                         </span>
                       </div>
-                      <Button variant='ghost' className='w-fit' onClick={() => signOut()}>
+                      <Button
+                        variant="ghost"
+                        className="w-fit"
+                        onClick={() => signOut()}
+                      >
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Logout</span>
                       </Button>
-                      </div>
-
-                    
+                    </div>
                   </div>
-                  
                 )}
               </nav>
             </SheetContent>

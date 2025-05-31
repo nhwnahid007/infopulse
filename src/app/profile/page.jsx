@@ -9,8 +9,7 @@ const ProfilePage = () => {
   const { status, data: session } = useSession();
   if (status === 'loading') {
     return <Loader />;
-  }
-  else if (status === 'authenticated') {
+  } else if (status === 'authenticated') {
     return (
       <div className="flex flex-col items-center justify-center h-screen pb-5">
         <ProfileWelcomeCard user={session.user} />
@@ -18,7 +17,7 @@ const ProfilePage = () => {
     );
   }
   return (
-    <div className='flex  flex-col items-center justify-center'>
+    <div className="flex  flex-col items-center justify-center">
       <SigninBtn></SigninBtn>
     </div>
   );

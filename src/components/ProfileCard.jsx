@@ -9,10 +9,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import History from './History';
 import Bookmark from './Bookmark';
-
 
 export default function ProfileWelcomeCard({ user }) {
   const getInitials = (name) =>
@@ -57,10 +56,23 @@ export default function ProfileWelcomeCard({ user }) {
       <CardContent className="space-y-3 px-4 flex flex-col items-center justify-center">
         <Separator />
 
-        <Tabs defaultValue="history" className="w-[400px] flex flex-col items-center justify-center">
+        <Tabs
+          defaultValue="history"
+          className="w-[400px] flex flex-col items-center justify-center"
+        >
           <TabsList>
-            <TabsTrigger value="history" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">History</TabsTrigger>
-            <TabsTrigger value="bookmark" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Bookmark</TabsTrigger>
+            <TabsTrigger
+              value="history"
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              History
+            </TabsTrigger>
+            <TabsTrigger
+              value="bookmark"
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              Bookmark
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="history">
             <History />
