@@ -31,4 +31,19 @@ const createAdminAction = async (formData) => {
   }
 };
 
+export const deleteAdminAction = async (email) => {
+	try {
+		await connectDB();
+		const existingUser = await User.findOne({ email });
+		if (!existingUser) {
+			throw new Error('User does not exist!');
+		}
+		existingUser.role = 'user';
+		await existingUser.save();
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+
 export default createAdminAction;
