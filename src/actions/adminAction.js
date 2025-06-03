@@ -31,6 +31,19 @@ const createAdminAction = async (formData) => {
   }
 };
 
+export const fetchAdminAction = async () => {
+	try {
+		await connectDB();
+
+		const result = await User.find({ role: 'admin' }).select('name email role');
+
+		const dataObj = JSON.parse(JSON.stringify(result));
+		return dataObj;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
 export const deleteAdminAction = async (email) => {
 	try {
 		await connectDB();
