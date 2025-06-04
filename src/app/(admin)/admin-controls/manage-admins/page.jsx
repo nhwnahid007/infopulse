@@ -6,7 +6,6 @@ import MsgShower from '../../../../components/MsgShower';
 import Input from '../../../../components/Input';
 import SubmitButton from '../../../../components/SubmitButton';
 import Select from '../../../../components/Select';
-import { useRouter } from 'next/navigation';
 import createAdminAction, {
   deleteAdminAction,
   fetchAdminAction,
@@ -14,10 +13,14 @@ import createAdminAction, {
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const Page = () => {
   const { status, data: session } = useSession();
-  const router = useRouter();
   const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
@@ -82,20 +85,30 @@ const Page = () => {
                 key={item?._id}
                 className="my-4 flex flex-col bg-base-100 p-4 rounded-lg"
               >
-                <MdDelete
-                  className="self-end text-red-400 cursor-pointer h-6 w-6"
-                  onClick={async () => {
-                    try {
-                      await deleteAdminAction(item.email);
-                      toast.success('Admin deleted successfully');
-                      const result = await fetchAdminAction();
-                      setAdmins(result);
-                    } catch (error) {
-                      toast.error('Failed to delete admin');
-                      console.error(error);
-                    }
-                  }}
-                />
+                <div className='self-end'>
+                	<Tooltip>
+	                  <TooltipTrigger>
+	                    <MdDelete
+	                      className=" text-red-400 cursor-pointer h-6 w-6"
+	                      onClick={async () => {
+	                        try {
+	                          await deleteAdminAction(item.email);
+	                          toast.success('Admin deleted successfully');
+	                          const result = await fetchAdminAction();
+	                          setAdmins(result);
+	                        } catch (error) {
+	                          toast.error('Failed to delete admin');
+	                          console.error(error);
+	                        }
+	                      }}
+	                    />
+	                  </TooltipTrigger>
+	                  <TooltipContent>
+	                    <p>Remove as Admin</p>
+	                  </TooltipContent>
+	                </Tooltip>
+                </div>
+
                 <h2>Name: {item?.name}</h2>
                 <h2>Email: {item?.email}</h2>
                 <h2>Role: {item?.role}</h2>
