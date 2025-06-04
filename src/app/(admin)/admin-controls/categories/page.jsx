@@ -6,6 +6,7 @@ import { fetchAllCategoryAction } from '../../../../actions/categoryActions';
 import Loader from '../../../../components/shared/LoadingSkeleton';
 import MsgShower from '../../../../components/MsgShower';
 import CategoryCard from '../../../../components/CategoryCard';
+import Link from 'next/link';
 
 
 const Categories = () => {
@@ -39,11 +40,13 @@ const Categories = () => {
             <div className='flex flex-wrap items-center justify-between pl-7 pr-5 py-4'>
 				<h2 className='font-bold text-lg'>All Categories</h2>
 				<div className='flex justify-between flex-wrap'>
-					<button
-						className='bg-primary h-12 w-28 rounded-md'
-						onClick={() => router.push('/admin-controls/categories/add-category')}>
-						Add
-					</button>
+					<Link href='/admin-controls/categories/add-category'>
+						<button
+							className='bg-primary h-12 w-28 rounded-md'
+							onClick={() => router.push('/')}>
+							Add
+						</button>
+					</Link>
 				</div>
 			</div>
 			<div className='flex px-6 py-2 gap-5 flex-wrap w-full justify-center md:justify-stretch'>

@@ -54,7 +54,7 @@ const UpdateCategory = () => {
             formRef.current?.reset();
             setSelectedFile(null);
             successRef.current.textContent = 'Updated successfully!';
-            router.replace('/admin-controls');
+            router.replace('/admin-controls/categories');
           } else {
             failedRef.current.textContent = data?.error;
           }
