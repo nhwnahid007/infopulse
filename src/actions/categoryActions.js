@@ -51,3 +51,13 @@ export const createCategoryAction = async (formData) => {
 	}
 };
 
+export const fetchAllCategoryAction = async () => {
+	try {
+		await connectDB();
+		const result = await Category.find();
+		const categories = JSON.parse(JSON.stringify(result));
+		return categories;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
