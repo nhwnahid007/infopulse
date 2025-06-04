@@ -9,7 +9,7 @@ export default function CategoryCard({ category }) {
 	const router = useRouter();
 
 	return (
-		<Card className="w-full md:w-96 bg-slate-800 text-white shadow-xl">
+		<Card className="w-full md:w-96 bg-slate-800 py-0 text-white ">
 			{category?.thumbnailURL && (
 				<div className="relative w-full h-48">
 					<Image
