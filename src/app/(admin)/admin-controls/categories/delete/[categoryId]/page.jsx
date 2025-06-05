@@ -4,21 +4,18 @@ import { deleteCategoryAction } from '@/actions/categoryActions';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Loader from '../../../../../../components/shared/LoadingSkeleton';
+
 import Swal from 'sweetalert2';
 
 export default function DeleteCategory() {
   const params = useParams();
-  const { status, data: session } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const doRedirect = async () => {
       if (!session?.user || session?.user?.role !== 'superAdmin') {
         router.replace('/admin-controls/categories');
-      } else {
-        setLoading(false);
       }
     };
     doRedirect();

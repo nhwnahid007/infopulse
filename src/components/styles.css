@@ -1,0 +1,36 @@
+.tiptap {
+  > * + * {
+    margin-top: 0.75em;
+  }
+  ul,
+  ol {
+    padding: 0 1rem;
+    list-style-position: inside;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  li {
+    margin: 0.5em 0;
+  }
+  li > p {
+    margin: 0;
+  }
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid #4f46e5;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #94a3b8;
+  }
+  a {
+    color: #4f46e5;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
