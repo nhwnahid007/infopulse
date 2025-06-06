@@ -6,7 +6,7 @@ import loading from '../../../public/loading.json';
 const Loader = () => {
   return (
     <div
-      className="flex items-center justify-center h-screen"
+      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
       suppressHydrationWarning
     >
       <Lottie animationData={loading} loop={true} />

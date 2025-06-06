@@ -9,7 +9,7 @@ import TipTap from '@/components/TipTap';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import TextArea from '../../../../../../components/TextArea';
+import TextArea from '@/components/TextArea';
 
 export default function UpdateNews() {
   const formRef = useRef(null);

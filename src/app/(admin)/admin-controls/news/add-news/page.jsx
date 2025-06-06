@@ -5,13 +5,13 @@ import { addNewsAction } from '@/actions/newsActions';
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
-import TextArea from '../../../../../components/TextArea';
-import TipTap from '../../../../../components/TipTap';
-import FileInput from '../../../../../components/FileInput';
-import Input from '../../../../../components/Input';
-import SubmitButton from '../../../../../components/SubmitButton';
+import TextArea from '@/components/TextArea';
+import TipTap from '@/components/TipTap';
+import FileInput from '@/components/FileInput';
+import Input from '@/components/Input';
+import SubmitButton from '@/components/SubmitButton';
 
-export default function AddNews() {
+const AddNews = () => {
   const formRef = useRef(null);
   const successRef = useRef(null);
   const failedRef = useRef(null);
@@ -115,4 +115,6 @@ export default function AddNews() {
       </form>
     </div>
   );
-}
+};
+
+export default AddNews;

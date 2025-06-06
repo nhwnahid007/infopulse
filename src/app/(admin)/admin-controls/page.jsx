@@ -6,7 +6,7 @@ import MenuItem from '@/components/MenuItem';
 import { MdCategory, MdNewspaper } from 'react-icons/md';
 import { RiAdminFill } from 'react-icons/ri';
 
-export default async function AdminControls() {
+const AdminControls = async () => {
   const session = await getServerSession(authOptions);
   console.log('session data', session);
 
@@ -33,4 +33,6 @@ export default async function AdminControls() {
     );
   }
   return <MsgShower msg={'You are not authorized to access this page'} />;
-}
+};
+
+export default AdminControls;
