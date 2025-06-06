@@ -85,28 +85,28 @@ const Page = () => {
                 key={item?._id}
                 className="my-4 flex flex-col bg-base-100 p-4 rounded-lg"
               >
-                <div className='self-end'>
-                	<Tooltip>
-	                  <TooltipTrigger>
-	                    <MdDelete
-	                      className=" text-red-400 cursor-pointer h-6 w-6"
-	                      onClick={async () => {
-	                        try {
-	                          await deleteAdminAction(item.email);
-	                          toast.success('Admin deleted successfully');
-	                          const result = await fetchAdminAction();
-	                          setAdmins(result);
-	                        } catch (error) {
-	                          toast.error('Failed to delete admin');
-	                          console.error(error);
-	                        }
-	                      }}
-	                    />
-	                  </TooltipTrigger>
-	                  <TooltipContent>
-	                    <p>Remove as Admin</p>
-	                  </TooltipContent>
-	                </Tooltip>
+                <div className="self-end">
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <MdDelete
+                        className=" text-red-400 cursor-pointer h-6 w-6"
+                        onClick={async () => {
+                          try {
+                            await deleteAdminAction(item.email);
+                            toast.success('Admin deleted successfully');
+                            const result = await fetchAdminAction();
+                            setAdmins(result);
+                          } catch (error) {
+                            toast.error('Failed to delete admin');
+                            console.error(error);
+                          }
+                        }}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Remove as Admin</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
 
                 <h2>Name: {item?.name}</h2>

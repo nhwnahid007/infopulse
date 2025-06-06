@@ -1,24 +1,53 @@
 'use client';
 
 import { fetchAllCategoryAction } from '@/actions/categoryActions';
-import { addNewsAction } from '@/actions/newsActions';
-
+import { fetchNewsAction, updateNewsAction } from '@/actions/newsActions';
+import FileInput from '@/components/FileInput';
+import Input from '@/components/Input';
+import SubmitButton from '@/components/SubmitButton';
+import TipTap from '@/components/TipTap';
 import { useSession } from 'next-auth/react';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import TextArea from '../../../../../components/TextArea';
-import TipTap from '../../../../../components/TipTap';
-import FileInput from '../../../../../components/FileInput';
-import Input from '../../../../../components/Input';
-import SubmitButton from '../../../../../components/SubmitButton';
+import TextArea from '../../../../../../components/TextArea';
 
-export default function AddNews() {
+export default function UpdateNews() {
   const formRef = useRef(null);
   const successRef = useRef(null);
   const failedRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [categories, setCategories] = useState([]);
   const [content, setContent] = useState('');
+  const [description, setDescription] = useState('');
   const { status, data: session } = useSession();
+  const params = useParams();
+  const router = useRouter();
+  const [newsData, setNewsData] = useState({
+    title: '',
+    shortDescription: '',
+    categories: [],
+  });
+
+  useEffect(() => {
+    const fetchNewsData = async () => {
+      try {
+        const fetchedNewsData = await fetchNewsAction(params.newsId);
+        setNewsData({
+          title: fetchedNewsData.title,
+          shortDescription: fetchedNewsData.shortDescription,
+          categories: fetchedNewsData.categories,
+        });
+        setContent(fetchedNewsData?.description);
+        setDescription(fetchedNewsData?.description);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (params.newsId) {
+      fetchNewsData();
+    }
+  }, [params]);
 
   useEffect(() => {
     const fetchCategoryData = async () => {
@@ -40,14 +69,16 @@ export default function AddNews() {
           successRef.current.textContent = '';
           failedRef.current.textContent = '';
 
+          formData.append('newsId', params.newsId);
           formData.append('description', content);
           formData.append('author', session?.user?.mongoId);
 
-          const data = await addNewsAction(formData);
+          const data = await updateNewsAction(formData);
           if (data?.success) {
             formRef.current?.reset();
             setSelectedFile(null);
-            successRef.current.textContent = 'Created!';
+            successRef.current.textContent = 'Updated!';
+            router.push('/admin-controls');
           } else {
             failedRef.current.textContent = data?.error;
           }
@@ -55,7 +86,7 @@ export default function AddNews() {
         className="w-[90%] sm:w-[580px] shadow-xl p-8 rounded-md flex flex-col gap-3 bg-base-100"
       >
         <h2 className="text-white font-bold text-2xl mb-4 self-center">
-          Create News
+          Update News
         </h2>
 
         <Input
@@ -64,12 +95,18 @@ export default function AddNews() {
           placeholderAttr={'Enter the news title'}
           requiredAttr={true}
           classAttr={'w-full'}
+          value={newsData.title}
+          onChange={(e) => setNewsData({ ...newsData, title: e.target.value })}
         />
         <TextArea
           nameAttr={'shortDescription'}
           placeholderAttr={'Short Description'}
           requiredAttr={true}
           classAttr={'w-full resize-none'}
+          value={newsData.shortDescription}
+          onChange={(e) =>
+            setNewsData({ ...newsData, shortDescription: e.target.value })
+          }
         />
 
         <p>Select Category:</p>
@@ -81,10 +118,21 @@ export default function AddNews() {
             >
               <input
                 type="checkbox"
+                checked={newsData?.categories?.some((category) => {
+                  return category === item?._id;
+                })}
                 className="checkbox checkbox-primary"
                 name="categories"
                 value={item?._id}
-                id="category"
+                id={item?._id}
+                onChange={(e) => {
+                  const newCategories = e.target.checked
+                    ? [...newsData.categories, item._id]
+                    : newsData.categories.filter(
+                        (category) => category !== item._id,
+                      );
+                  setNewsData({ ...newsData, categories: newCategories });
+                }}
               />
               <span>{item?.name}</span>
             </div>
@@ -99,6 +147,7 @@ export default function AddNews() {
         <TipTap
           content={content}
           onChange={(newContent) => setContent(newContent)}
+          description={description}
         />
 
         <div className="self-center mt-4">

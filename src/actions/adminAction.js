@@ -32,31 +32,30 @@ const createAdminAction = async (formData) => {
 };
 
 export const fetchAdminAction = async () => {
-	try {
-		await connectDB();
+  try {
+    await connectDB();
 
-		const result = await User.find({ role: 'admin' }).select('name email role');
+    const result = await User.find({ role: 'admin' }).select('name email role');
 
-		const dataObj = JSON.parse(JSON.stringify(result));
-		return dataObj;
-	} catch (error) {
-		throw new Error(error);
-	}
+    const dataObj = JSON.parse(JSON.stringify(result));
+    return dataObj;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const deleteAdminAction = async (email) => {
-	try {
-		await connectDB();
-		const existingUser = await User.findOne({ email });
-		if (!existingUser) {
-			throw new Error('User does not exist!');
-		}
-		existingUser.role = 'user';
-		await existingUser.save();
-	} catch (error) {
-		throw new Error(error);
-	}
+  try {
+    await connectDB();
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      throw new Error('User does not exist!');
+    }
+    existingUser.role = 'user';
+    await existingUser.save();
+  } catch (error) {
+    throw new Error(error);
+  }
 };
-
 
 export default createAdminAction;
