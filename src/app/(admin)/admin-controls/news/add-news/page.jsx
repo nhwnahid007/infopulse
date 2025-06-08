@@ -4,6 +4,7 @@ import { fetchAllCategoryAction } from '@/actions/categoryActions';
 import { addNewsAction } from '@/actions/newsActions';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import TextArea from '@/components/TextArea';
 import TipTap from '@/components/TipTap';
@@ -12,6 +13,7 @@ import Input from '@/components/Input';
 import SubmitButton from '@/components/SubmitButton';
 
 const AddNews = () => {
+  const router = useRouter();
   const formRef = useRef(null);
   const successRef = useRef(null);
   const failedRef = useRef(null);
@@ -48,6 +50,7 @@ const AddNews = () => {
             formRef.current?.reset();
             setSelectedFile(null);
             successRef.current.textContent = 'Created!';
+            router.push('/admin-controls/news');
           } else {
             failedRef.current.textContent = data?.error;
           }
