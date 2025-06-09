@@ -13,7 +13,7 @@ const AdminControls = async () => {
   if (session?.user?.role === 'admin' || session?.user?.role === 'superAdmin') {
     return (
       <div className="mx-auto px-4 max-w-6xl">
-        <div className="py-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
+        <div className="py-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3 place-items-center">
           {session?.user?.role === 'superAdmin' && (
             <Link href="/admin-controls/manage-admins">
               <MenuItem Icon={RiAdminFill} Title="Manage Admins" />
@@ -24,10 +24,7 @@ const AdminControls = async () => {
           </Link>
           <Link href="/admin-controls/news">
             <MenuItem Icon={MdNewspaper} Title="News" />
-          </Link>
-          <Link href="/admin-controls/short-url">
-            <MenuItem Icon={RiAdminFill} Title="Short URL" />
-          </Link>
+          </Link>    
         </div>
       </div>
     );
