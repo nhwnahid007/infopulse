@@ -59,26 +59,32 @@ const NewsCard = ({ news, onDelete }) => {
       )}
 
       <CardContent className="p-4 space-y-3">
-        <h2 className="text-xl font-semibold hover:text-indigo-400 transition">
-          {news?.title}
-        </h2>
+        <div className="flex flex-col h-[120px]">
+          <h2 className="text-xl font-semibold hover:text-indigo-400 transition line-clamp-2">
+            {news?.title}
+          </h2>
 
-        {news?.shortDescription && (
-          <p className="text-sm text-slate-300">{news.shortDescription}</p>
-        )}
+          {news?.shortDescription && (
+            <p className="text-sm text-slate-300 line-clamp-3 mt-2">
+              {news.shortDescription}
+            </p>
+          )}
+        </div>
 
-        <div className="text-xs text-slate-400">{news?.viewsCount} views</div>
+        <div className="flex justify-between items-center pt-2">
+          <div className="text-xs text-slate-400">{news?.viewsCount} views</div>
 
-        {pathname.includes('/admin-controls') && (
-          <div className="flex justify-end space-x-2 pt-4">
-            <Link href={`/admin-controls/news/update/${news?._id}`}>
-              <Button variant="default">Edit</Button>
-            </Link>
-            <Button variant="destructive" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        )}
+          {pathname.includes('/admin-controls') && (
+            <div className="flex space-x-2">
+              <Link href={`/admin-controls/news/update/${news?._id}`}>
+                <Button variant="default">Edit</Button>
+              </Link>
+              <Button variant="destructive" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
