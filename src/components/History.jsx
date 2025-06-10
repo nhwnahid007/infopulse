@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import Loader from './shared/LoadingSkeleton';
 
 
-const AllNewsHistory = () => {
+const History = () => {
 	const [histories, setHistories] = useState([]);
 	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
@@ -97,4 +97,4 @@ const AllNewsHistory = () => {
 	);
 };
 
-export default AllNewsHistory;
+export default History;

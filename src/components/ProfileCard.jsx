@@ -12,6 +12,8 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import History from './History';
 import Bookmark from './Bookmark';
+import { Button } from './ui/button';
+import Link from 'next/link';
 
 export default function ProfileWelcomeCard({ user }) {
   const getInitials = (name) =>
@@ -23,7 +25,7 @@ export default function ProfileWelcomeCard({ user }) {
       .slice(0, 2);
 
   return (
-    <Card className="w-full max-w-[60%] mx-auto mb-10 ">
+    <Card className="w-full max-w-[50%] mx-auto mb-10 ">
       <CardHeader className="text-center pb-3">
         <div className="flex justify-center mb-3">
           <Avatar className="w-16 h-16">
@@ -53,37 +55,14 @@ export default function ProfileWelcomeCard({ user }) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3 px-4 flex flex-col items-center justify-center">
-        <Separator />
-
-        <Tabs
-          defaultValue="history"
-          className="w-[400px] flex flex-col items-center justify-center"
-        >
-          <TabsList>
-            <TabsTrigger
-              value="history"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-            >
-              History
-            </TabsTrigger>
-            <TabsTrigger
-              value="bookmark"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-            >
-              Bookmark
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="history">
-            <History />
-          </TabsContent>
-          <TabsContent value="bookmark">
-            <Bookmark />
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-
-      <CardFooter className="flex gap-2 px-4 pb-4 pt-3"></CardFooter>
+      <CardFooter className="flex justify-center gap-4 px-4 pb-4 pt-3">
+        <Link href="/history" passHref>
+          <Button className="text-sm w-24">History</Button>
+        </Link>
+        <Link href="/bookmarks" passHref>
+          <Button className="text-sm w-24">Bookmarks</Button>
+        </Link>
+      </CardFooter>
     </Card>
   );
 }
