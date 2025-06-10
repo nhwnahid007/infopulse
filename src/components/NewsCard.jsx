@@ -43,7 +43,10 @@ const NewsCard = ({ news, onDelete }) => {
   };
 
   return (
-    <Card className="w-full p-2 md:w-96 bg-slate-800 text-white border-none">
+    <Card
+      className="w-full p-2 md:w-96 bg-slate-800 text-white border-none cursor-pointer hover:bg-slate-700 transition"
+      onClick={() => router.push(`/news/view/${news.slug}`)}
+    >
       {news?.thumbnailURL && (
         <div className="relative w-full h-48">
           <Image
@@ -56,10 +59,7 @@ const NewsCard = ({ news, onDelete }) => {
       )}
 
       <CardContent className="p-4 space-y-3">
-        <h2
-          className="text-xl font-semibold hover:text-indigo-400 transition cursor-pointer"
-          onClick={() => router.push(`/news/view/${news.slug}`)}
-        >
+        <h2 className="text-xl font-semibold hover:text-indigo-400 transition">
           {news?.title}
         </h2>
 

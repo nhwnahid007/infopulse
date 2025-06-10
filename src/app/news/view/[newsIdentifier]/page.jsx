@@ -3,8 +3,9 @@ import Image from 'next/image';
 import { FiUser } from 'react-icons/fi';
 import BookmarkButton from '../../../../components/BookmarkButton';
 import NewsCard from '../../../../components/NewsCard';
-import CreateHistory from '../../../../components/CreateHistory';
+
 import { formatReadableDateTime } from '../../../../lib/formatTime';
+import CreateHistory from '../../../../components/CreateHistory';
 
 const fetchNews = async (newsIdentifier) => {
 	const res = await fetch(
