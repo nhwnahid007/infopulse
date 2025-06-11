@@ -25,7 +25,7 @@ export default function ProfileWelcomeCard({ user }) {
       .slice(0, 2);
 
   return (
-    <Card className="w-full max-w-[50%] mx-auto mb-10 bg-slate-800 text-white border-none ">
+    <Card className="w-full max-w-[90%] lg:max-w-[50%] mx-auto mb-10 bg-slate-800 text-white border-none ">
       <CardHeader className="text-center pb-3">
         <div className="flex justify-center mb-3">
           <Avatar className="w-16 h-16">
