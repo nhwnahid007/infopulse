@@ -8,64 +8,73 @@ import History from '../../../../models/HistoryModel';
 import News from '../../../../models/newsModel';
 
 const joiHistorySchema = Joi.object({
-	userId: Joi.string().required(),
-	newsIdentifier: Joi.string().required(),
+  userId: Joi.string().required(),
+  newsIdentifier: Joi.string().required(),
 });
 
 export async function POST(req) {
-	try {
-		const newsIdentifier = req.nextUrl.searchParams.get('newsIdentifier');
-		const session = await getServerSession(authOptions);
-		const userId = session?.user?.mongoId;
+  try {
+    const newsIdentifier = req.nextUrl.searchParams.get('newsIdentifier');
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.mongoId;
 
-		const { error } = joiHistorySchema.validate({ userId, newsIdentifier });
+    const { error } = joiHistorySchema.validate({ userId, newsIdentifier });
 
-		if (error) {
-			return NextResponse.json(
-				{ message: 'Validation Error', error: error.details[0].message },
-				{ status: 400 }
-			);
-		}
+    if (error) {
+      return NextResponse.json(
+        { message: 'Validation Error', error: error.details[0].message },
+        { status: 400 },
+      );
+    }
 
-		const isValidObjectId = mongoose.Types.ObjectId.isValid(newsIdentifier);
-		let query;
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(newsIdentifier);
+    let query;
 
-		if (isValidObjectId) {
-			query = { _id: newsIdentifier };
-		} else {
-			query = { slug: newsIdentifier };
-		}
-		await connectDB();
-		const news = await News.findOne(query);
+    if (isValidObjectId) {
+      query = { _id: newsIdentifier };
+    } else {
+      query = { slug: newsIdentifier };
+    }
+    await connectDB();
+    const news = await News.findOne(query);
 
-		const historyExists = await History.findOneAndUpdate(
-			{ User: userId, News: news?._id },
-			{ createdAt: new Date() },
-			{ new: true }
-		);
+    // Increment view count for all users
+    await News.updateOne({ _id: news._id }, { $inc: { viewsCount: 1 } });
 
-		if (historyExists) {
-			return NextResponse.json(
-				{ message: 'History Exists', data: historyExists },
-				{ status: 200 }
-			);
-		}
+    // Only create history for authenticated users
+    if (userId) {
+      const historyExists = await History.findOneAndUpdate(
+        { User: userId, News: news?._id },
+        { createdAt: new Date() },
+        { new: true },
+      );
 
-		const result = await History.create({
-			User: userId,
-			News: news._id,
-		});
+      if (historyExists) {
+        return NextResponse.json(
+          { message: 'History Exists', data: historyExists },
+          { status: 200 },
+        );
+      }
 
-		await News.updateOne({ _id: news._id }, { $inc: { viewsCount: 1 } });
+      const result = await History.create({
+        User: userId,
+        News: news._id,
+      });
 
-		return NextResponse.json(
-			{ message: 'History Create', data: result },
-			{ status: 201 }
-		);
-	} catch (error) {
-		return NextResponse.json(
-			{ message: 'Something went wrong', error },
-			{ status: 400 }
-		);
-	}
+      return NextResponse.json(
+        { message: 'History Create', data: result },
+        { status: 201 },
+      );
+    }
+
+    return NextResponse.json(
+      { message: 'View count incremented' },
+      { status: 200 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: 'Something went wrong', error },
+      { status: 400 },
+    );
+  }
 }
