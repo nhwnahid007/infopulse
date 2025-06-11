@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { MdBookmarkAdd } from 'react-icons/md';
 
-export default function BookmarkButton({ newsIdentifier }) {
+const BookmarkButton = ({ newsIdentifier }) => {
 	const { data: session } = useSession();
 	const [bookmarked, setBookmarked] = useState(false);
 
@@ -50,4 +50,6 @@ export default function BookmarkButton({ newsIdentifier }) {
 			onClick={handleBookmark}
 		/>
 	);
-}
+};
+
+export default BookmarkButton;
