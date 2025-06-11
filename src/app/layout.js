@@ -16,15 +16,17 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: 'InfoPulse',
-  description: 'Stay informed with the latest news and updates from around the world.',
+  description:
+    'Stay informed with the latest news and updates from around the world.',
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL
+      process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
   ),
   openGraph: {
     title: 'InfoPulse',
-    description: 'Stay informed with the latest news and updates from around the world.',
+    description:
+      'Stay informed with the latest news and updates from around the world.',
     siteName: 'InfoPulse',
-    url: process.env.NEXT_PUBLIC_APP_URL,
+    url: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
     images: [
       {
         url: '/logo.png',
@@ -35,7 +37,6 @@ export const metadata = {
     ],
     type: 'website',
     locale: 'en_US',
-    siteName: 'InfoPulse',
   },
 };
 
