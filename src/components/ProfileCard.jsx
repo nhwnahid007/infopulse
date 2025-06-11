@@ -59,7 +59,7 @@ export default function ProfileWelcomeCard({ user }) {
         <Link href="/history" passHref>
           <Button className="text-sm w-24">History</Button>
         </Link>
-        <Link href="/bookmarks" passHref>
+        <Link href="/bookmark" passHref>
           <Button className="text-sm w-24">Bookmarks</Button>
         </Link>
       </CardFooter>
