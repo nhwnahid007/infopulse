@@ -6,7 +6,7 @@ const fetchNewes = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/allNews?page=1`,
     {
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     },
   );
   if (!res.ok) return null;
