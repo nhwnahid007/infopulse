@@ -13,6 +13,7 @@ import {
   Menu,
   Grid3X3,
   LogOut,
+  Settings,
 } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 
@@ -68,7 +69,7 @@ export default function Navbar() {
   const router = useRouter();
   const { status, data: session } = useSession();
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const isAdmin = session?.user?.role === 'admin' || session?.user?.role === 'superAdmin';
   const handleNavigation = (href) => {
     router.push(href);
     setIsOpen(false);
@@ -164,6 +165,14 @@ export default function Navbar() {
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
+                  {
+                    isAdmin && (
+                      <DropdownMenuItem onClick={() => router.push('/admin-controls')}>
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Admin Dashboard</span>
+                      </DropdownMenuItem>
+                    )
+                  }
                   <DropdownMenuItem onClick={() => signOut()}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
